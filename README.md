@@ -39,6 +39,7 @@ sreeni
 ```
 According to the interface shown below:
 
+
 •	Import the images into the annotation tool (Section 1).
 
 •	Create the relevant classes corresponding to the target (Section 2).
@@ -108,8 +109,11 @@ data_yaml= "D:/F/512/PostDoctoral/Images/AlangDarreh/YoloProcessing/2016_samples
 model_weights = 'yolo11s.pt'
 model = YOLO(model_weights)
 ```
+
 **data_yaml:** This file contains metadata about the dataset, including class names, and the locations of training and validation images and labels.
+
 **model_weights:** Specifies the pretrained YOLO11s model to be used as the starting point for training or inference.
+
 These paths must be correctly set to ensure the model can access the necessary data and configuration during training.
 If you have already downloaded the YOLO11s model, you can directly specify its local path to avoid automatic re-downloading. You might express this in code like:
 
@@ -130,6 +134,7 @@ model.train(
 )
 ```
 These parameters control the core aspects of the training process:
+
 •	**data:** points to the YAML file that defines the dataset structure, class names, and paths to training/validation data.
 
 •	**epochs:** determines how many full passes the model makes over the training data.
@@ -229,13 +234,14 @@ model = YOLO(model_path)   # Load the trained YOLO model from the specified path
 ```
 
 ## 3.4. Define the Coordinate Reference System (CRS)
-Finally, we specify the spatial reference system. Here, UTM Zone 40N (EPSG:32640) is chosen, which is suitable for georeferenced data in Iran. This ensures that predictions can later be merged and aligned correctly with geographic coordinates.
+Finally, we specify the spatial reference system. Here, UTM Zone 40N (EPSG:32640) is chosen, which is suitable for georeferenced data in my study area which is in part of Iran. This ensures that predictions can later be merged and aligned correctly with geographic coordinates.
 ```python
-utm_crs = CRS.from_epsg(32640)   # Define CRS: EPSG:32640 (UTM Zone 40N, WGS84)
+utm_crs = CRS.from_epsg(32640)   # Define CRS: EPSG:32640 (UTM Zone 40N, WGS84 (my study area))
 ```
 
 ## 3.5. Process Each Image and Collect Detections
 The script loops through all .tif images in the input directory. For each image:
+
 •	The geospatial transform and CRS are extracted using rasterio.
 
 •	YOLO performs predictions with a confidence threshold of 0.2.
